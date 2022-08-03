@@ -10,10 +10,13 @@ exports.putItemHandler = async (event) => {
     }
     console.info('received:', event);
 
+    console.log('datauri', event.body)
+
+
     const params = {
         Bucket: 'manager-mobile-s3-pdfs',
         Key: event.pathParameters.id,
-        Body: event.body,
+        Body: new Buffer(event.body.split(',')[1], 'base64'),
         ContentType: 'application/pdf'
     };
     await s3.putObject(params).promise()
