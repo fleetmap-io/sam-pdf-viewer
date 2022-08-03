@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "sam-pdf-viewer"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-18hy9hazjvmg1"
+s3_prefix = "sam-pdf-viewer"
+region = "us-east-1"
+profile = "pinme"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
