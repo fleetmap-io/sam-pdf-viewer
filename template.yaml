@@ -50,16 +50,16 @@ Resources:
             Path: /{id}
             Method: GET
 
-  putItemFunction:
+  getPdfFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/put-item.putItemHandler
+      Handler: src/handlers/get-by-id.getByIdHandler
       Runtime: nodejs16.x
       Architectures:
         - x86_64
       MemorySize: 128
       Timeout: 100
-      Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
+      Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
       Policies:
         # Give Create/Read/Update/Delete Permissions to the SampleTable
         - S3FullAccessPolicy:
@@ -72,13 +72,38 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /
-            Method: POST
+            Path: /pdf/{id}
+            Method: GET
+
+  putItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+        Handler: src/handlers/put-item.putItemHandler
+        Runtime: nodejs16.x
+        Architectures:
+          - x86_64
+        MemorySize: 128
+        Timeout: 100
+        Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
+        Policies:
+          # Give Create/Read/Update/Delete Permissions to the SampleTable
+          - S3FullAccessPolicy:
+              BucketName: !Ref AppBucket
+        Environment:
+          Variables:
+            # Make table name accessible as environment variable from function code during execution
+            BUCKET_NAME: !Ref AppBucket
+        Events:
+          Api:
+            Type: Api
+            Properties:
+              Path: /
+              Method: POST
 
   AppBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: manager-mobile-s3-pdfs
+        BucketName: manager-mobile-s3-pdfs
 
 Outputs:
   WebEndpoint:
