@@ -18,11 +18,11 @@ exports.getByIdHandler = async (event) => {
   }
 
   if (event.queryStringParameters && event.queryStringParameters.raw) {
-    const o = await s3.getObject(params).promise()
+    const url = s3.getSignedUrl('getObject', params)
+    console.log(url)
     const response = {
-      statusCode: 200,
-      headers: {'content-type': 'application/pdf', 'Access-Control-Allow-Origin': '*'},
-      body: o.Body
+      statusCode: 302,
+      headers: {'Location': url, 'Access-Control-Allow-Origin': '*'}
     }
     console.info(`response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response

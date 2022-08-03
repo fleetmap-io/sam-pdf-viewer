@@ -72,7 +72,7 @@ Resources:
           Api:
             Type: Api
             Properties:
-              Path: /
+              Path: /{id}
               Method: POST
 
   AppBucket:
