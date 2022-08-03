@@ -6,6 +6,9 @@ const docClient = new dynamodb.DocumentClient();
 
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.SAMPLE_TABLE;
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3();
 
 /**
  * A simple example includes a HTTP post method to add one item to a DynamoDB table.
@@ -19,15 +22,13 @@ exports.putItemHandler = async (event) => {
 
     // Get id and name from the body of the request
     const body = JSON.parse(event.body);
-    const id = body.id;
-    const name = body.name;
 
     const params = {
-        TableName: tableName,
-        Item: {id: id, name: name}
+        Bucket: 'manager-mobile-s3-pdfs',
+        Key: body.id,
+        Body: body.name,
     };
-
-    await docClient.put(params).promise();
+    await s3.putObject(params).promise()
 
     const response = {
         statusCode: 200,
