@@ -47,32 +47,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /id/{id}
-            Method: GET
-
-  getPdfFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/handlers/get-by-id.getByIdHandler
-      Runtime: nodejs16.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
-      Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
-        - S3FullAccessPolicy:
-            BucketName: !Ref AppBucket
-      Environment:
-        Variables:
-          # Make table name accessible as environment variable from function code during execution
-          BUCKET_NAME: !Ref AppBucket
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /pdf/{id}
+            Path: /{id}
             Method: GET
 
   putItemFunction:
