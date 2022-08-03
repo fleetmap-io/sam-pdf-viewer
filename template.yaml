@@ -47,7 +47,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /{id}
+            Path: /id/{id}
             Method: GET
 
   getPdfFunction:
