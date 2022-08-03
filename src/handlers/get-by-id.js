@@ -31,6 +31,7 @@ exports.getByIdHandler = async (event) => {
 
   const response = {
     statusCode: 200,
+    headers: {'content-type': 'text/html'},
     body: `<html lang="pt"><iframe style="padding: 0; border:0; width:100vw; height: 100vh" src="${item.name}" /></html>`
   };
 
