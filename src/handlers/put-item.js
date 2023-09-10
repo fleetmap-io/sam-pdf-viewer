@@ -16,7 +16,7 @@ exports.putItemHandler = async (event) => {
     const params = {
         Bucket: 'manager-mobile-s3-pdfs',
         Key: event.pathParameters.id,
-        Body: new Buffer(event.body.split(',')[1], 'base64'),
+        Body: Buffer.from(event.body.split(',')[1], 'base64'),
         ContentType: 'application/pdf'
     };
     await s3.putObject(params).promise()
