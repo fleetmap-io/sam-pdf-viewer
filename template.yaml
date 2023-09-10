@@ -49,11 +49,6 @@ Resources:
           Properties:
             Path: /{id}
             Method: GET
-        ApiPut:
-          Type: Api
-          Properties:
-            Path: /{id}
-            Method: PUT
 
   putItemFunction:
     Type: AWS::Serverless::Function
@@ -62,7 +57,7 @@ Resources:
         Runtime: nodejs16.x
         Architectures:
           - x86_64
-        MemorySize: 128
+        MemorySize: 512
         Timeout: 100
         Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
         Policies:
@@ -79,6 +74,11 @@ Resources:
             Properties:
               Path: /{id}
               Method: POST
+          ApiPut:
+            Type: Api
+            Properties:
+              Path: /{id}
+              Method: PUT
 
   AppBucket:
     Type: AWS::S3::Bucket

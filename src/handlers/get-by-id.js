@@ -15,10 +15,10 @@ exports.getByIdHandler = async (event) => {
   const params = {
     Bucket: 'manager-mobile-s3-pdfs',
     Key: id,
-    Expires: 60 * 1000
+    Expires: 600 * 1000
   }
 
-  if (event.queryStringParameters && event.queryStringParameters.raw) {
+
     const url = s3.getSignedUrl('getObject', params)
     console.log(url)
     const response = {
@@ -27,18 +27,4 @@ exports.getByIdHandler = async (event) => {
     }
     console.info(`response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response
-  }
-
-  const response = {
-    statusCode: 200,
-    headers: {'content-type': 'text/html'},
-    body: `<iframe
-              id="ifamePdf"              
-              src="https://docs.google.com/viewerng/viewer?url=https://tqdeegmk8f.execute-api.us-east-1.amazonaws.com/Prod/${id}%3fraw=true&embedded=true"
-              height="600"
-            ></iframe>`
-  }
-
-  console.info(`response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`);
-  return response
 }

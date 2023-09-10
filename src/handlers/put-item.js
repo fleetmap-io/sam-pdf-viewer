@@ -8,7 +8,8 @@ const s3 = new AWS.S3();
 exports.putItemHandler = async (event) => {
     console.info('received:', event);
     if (event.httpMethod !== 'POST') {
-        const pdf = await new Reports()[event.queryStringParameters.reportType + 'ReportToPDF'](event.body.userData, event.body.reportData)
+        const body = JSON.parse(event.body)
+        const pdf = await new Reports({baseOptions: null})[event.queryStringParameters.reportType + 'ReportToPDF'](body.userData, body.reportData)
         event.body = pdf.output('datauristring')
     }
     const params = {
