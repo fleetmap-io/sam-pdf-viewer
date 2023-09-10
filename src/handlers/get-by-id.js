@@ -17,7 +17,7 @@ exports.getByIdHandler = async (event) => {
   const params = {
     Bucket: 'manager-mobile-s3-pdfs',
     Key: id,
-    Expires: tomorrow
+    Expires: 1000
   }
 
   console.log('params', params)
