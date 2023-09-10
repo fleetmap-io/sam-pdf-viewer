@@ -15,9 +15,10 @@ exports.getByIdHandler = async (event) => {
   const params = {
     Bucket: 'manager-mobile-s3-pdfs',
     Key: id,
-    Expires: new Date().getTime()/1000 + 60
+    Expires: 2147483646
   }
 
+  console.log('params', params)
   if (event.queryStringParameters && event.queryStringParameters.raw) {
     const url = s3.getSignedUrl('getObject', params)
     console.log(url)
