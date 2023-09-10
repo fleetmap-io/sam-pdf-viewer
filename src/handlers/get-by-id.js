@@ -11,11 +11,13 @@ exports.getByIdHandler = async (event) => {
   // All log statements are written to CloudWatch
   console.info('received:', event);
   const id = event.pathParameters.id;
-
+  const today = new Date()
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
   const params = {
     Bucket: 'manager-mobile-s3-pdfs',
     Key: id,
-    Expires: 2147483646
+    Expires: tomorrow
   }
 
   console.log('params', params)
