@@ -74,6 +74,11 @@ Resources:
             Properties:
               Path: /{id}
               Method: POST
+          ApiPut:
+            Type: Api
+            Properties:
+              Path: /{id}
+              Method: PUT
 
   AppBucket:
     Type: AWS::S3::Bucket
